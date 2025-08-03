@@ -1,0 +1,145 @@
+{
+  "nav": {
+    "home": "Startseite",
+    "registerOrg": "Organisation registrieren",
+    "dashboard": "Dashboard",
+    "inventory": "Inventar",
+    "reservations": "Reservierungen",
+    "members": "Mitglieder",
+    "checkInOut": "Ausleihe",
+    "billing": "Abrechnung",
+    "maintenance": "Wartung",
+    "analytics": "Statistiken"
+  },
+  "common": {
+    "edit": "Bearbeiten",
+    "delete": "L\u00f6schen",
+    "cancel": "Abbrechen",
+    "save": "Speichern"
+  },
+  "home": {
+    "title": "Startseite"
+  },
+  "login": {
+    "title": "Anmelden",
+    "subtitle": "Geben Sie Ihre Zugangsdaten ein",
+    "email": "E-Mail",
+    "password": "Passwort",
+    "remember": "Angemeldet bleiben",
+    "forgot": "Passwort vergessen?",
+    "noAccount": "Noch kein Konto?",
+    "registerLink": "Jetzt registrieren",
+    "submit": "Anmelden",
+    "loggingIn": "Anmeldung…",
+    "error": "Anmeldung fehlgeschlagen"
+  },
+  "register": {
+    "title": "Registrieren",
+    "stepOrg": "Organisation",
+    "stepUser": "Konto anlegen",
+    "orgName": "Organisationsname",
+    "adminFirstname": "Admin Vorname",
+    "adminLastname": "Admin Nachname",
+    "adminEmail": "Admin E-Mail",
+    "adminPassword": "Admin Passwort",
+    "subscriptionTier": "Abo-Stufe",
+    "addressTitle": "Adresse",
+    "street": "Stra\u00dfe",
+    "city": "Stadt",
+    "state": "Bundesland",
+    "postalCode": "PLZ",
+    "country": "Land",
+    "firstName": "Vorname",
+    "lastName": "Nachname",
+    "email": "E-Mail",
+    "password": "Passwort",
+    "confirmPassword": "Passwort wiederholen",
+    "acceptTerms": "AGB akzeptieren",
+    "next": "Weiter",
+    "back": "Zurück",
+    "submit": "Registrieren",
+    "error": "Registrierung fehlgeschlagen"
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "welcome": "Willkommen im Tool-Library-Dashboard"
+  },
+  "inventory": {
+    "title": "Inventar",
+    "placeholder": "Werkzeugliste folgt",
+    "addTool": "Werkzeug hinzuf\u00fcgen",
+    "editTool": "Werkzeug bearbeiten",
+    "deleteMessage": "M\u00f6chten Sie \u00bb{name}\u00ab wirklich l\u00f6schen?",
+    "name": "Name",
+    "description": "Beschreibung",
+    "category": "Kategorie",
+    "condition": "Zustand",
+    "quantity": "Verf\u00fcgbare Menge",
+    "imageUrl": "Bild-URL",
+    "uploadLabel": "Bilder",
+    "maxFiles": "Maximal {max} Dateien erlaubt",
+    "fileTooLarge": "Datei zu gro\u00df (max 3 MB)",
+    "created": "Werkzeug erstellt",
+    "updated": "Werkzeug aktualisiert",
+    "deleted": "Werkzeug gel\u00f6scht",
+    "error": "Aktion fehlgeschlagen"
+  },
+  "reservations": {
+    "title": "Reservierungen",
+    "placeholder": "Kalender wird hier angezeigt",
+    "reserveTool": "Werkzeug reservieren",
+    "tool": "Werkzeug",
+    "from": "Von",
+    "until": "Bis",
+    "quantity": "Menge",
+    "submit": "Reservieren",
+    "created": "Reservierung erstellt",
+    "error": "Aktion fehlgeschlagen"
+  },
+  "members": {
+    "title": "Mitglieder",
+    "placeholder": "Mitgliederverwaltung folgt",
+    "inviteMember": "Mitglied einladen",
+    "noMembers": "Noch keine Mitglieder",
+    "email": "E-Mail",
+    "role": "Rolle"
+  },
+  "checkInOut": {
+    "title": "Ausleihe",
+    "placeholder": "Werkzeuge ein- und auschecken"
+  },
+  "billing": {
+    "title": "Abrechnung",
+    "placeholder": "Zahlungen und Gebühren"
+  },
+  "maintenance": {
+    "title": "Wartung",
+    "placeholder": "Wartungsaufgaben verfolgen"
+  },
+  "analytics": {
+    "title": "Statistiken",
+    "placeholder": "Nutzungsstatistiken und Berichte"
+  },
+  "landing": {
+    "heroTitle": "Werkzeuge einfach leihen statt kaufen.",
+    "heroDescription": "Entdecke, wie Equipassa das Teilen von Tools vereinfacht.",
+    "registerButton": "Jetzt registrieren",
+    "loginButton": "Anmelden",
+    "advantages": {
+      "easy": "Einfach ausleihen",
+      "sustainable": "Nachhaltig handeln",
+      "saveMoney": "Geld sparen",
+      "easyText": "Reserviere Werkzeuge online und nutze sie sofort.",
+      "sustainableText": "Teile Ressourcen und reduziere Neuanschaffungen.",
+      "saveMoneyText": "Bezahle nur für die Nutzung statt für den Besitz."
+    },
+    "steps": {
+      "register": "Registrieren",
+      "reserve": "Tool reservieren",
+      "pickup": "Abholen & loslegen"
+    },
+    "privacy": "Datenschutz",
+    "imprint": "Impressum",
+    "contact": "Kontakt"
+  }
+}

@@ -1,0 +1,145 @@
+{
+  "nav": {
+    "home": "Home",
+    "registerOrg": "Register Org",
+    "dashboard": "Dashboard",
+    "inventory": "Inventory",
+    "reservations": "Reservations",
+    "members": "Members",
+    "checkInOut": "Check In/Out",
+    "billing": "Billing",
+    "maintenance": "Maintenance",
+    "analytics": "Analytics"
+  },
+  "common": {
+    "edit": "Edit",
+    "delete": "Delete",
+    "cancel": "Cancel",
+    "save": "Save"
+  },
+  "home": {
+    "title": "Home"
+  },
+  "login": {
+    "title": "Login",
+    "subtitle": "Enter your credentials to continue",
+    "email": "Email",
+    "password": "Password",
+    "remember": "Remember me",
+    "forgot": "Forgot password?",
+    "noAccount": "No account?",
+    "registerLink": "Register now",
+    "submit": "Login",
+    "loggingIn": "Logging in…",
+    "error": "Login failed"
+  },
+  "register": {
+    "title": "Register",
+    "stepOrg": "Organization",
+    "stepUser": "Create account",
+    "orgName": "Organization name",
+    "adminFirstname": "Admin first name",
+    "adminLastname": "Admin last name",
+    "adminEmail": "Admin email",
+    "adminPassword": "Admin password",
+    "subscriptionTier": "Subscription tier",
+    "addressTitle": "Address",
+    "street": "Street",
+    "city": "City",
+    "state": "State",
+    "postalCode": "Postal code",
+    "country": "Country",
+    "firstName": "First name",
+    "lastName": "Last name",
+    "email": "Email",
+    "password": "Password",
+    "confirmPassword": "Confirm password",
+    "acceptTerms": "I accept the terms and conditions",
+    "next": "Next",
+    "back": "Back",
+    "submit": "Register",
+    "error": "Registration failed"
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "welcome": "Welcome to the tool library dashboard"
+  },
+  "inventory": {
+    "title": "Inventory",
+    "placeholder": "Tool list will appear here",
+    "addTool": "Add Tool",
+    "editTool": "Edit Tool",
+    "deleteMessage": "Do you really want to delete \"{name}\"?",
+    "name": "Name",
+    "description": "description",
+    "category": "Category",
+    "condition": "Condition",
+    "quantity": "Quantity Available",
+    "imageUrl": "Image URL",
+    "uploadLabel": "Images",
+    "maxFiles": "Maximum {max} files allowed",
+    "fileTooLarge": "File too large (max 3 MB)",
+    "created": "Tool created",
+    "updated": "Tool updated",
+    "deleted": "Tool deleted",
+    "error": "Operation failed"
+  },
+  "reservations": {
+    "title": "Reservations",
+    "placeholder": "Reservation calendar goes here",
+    "reserveTool": "Reserve Tool",
+    "tool": "Tool",
+    "from": "From",
+    "until": "Until",
+    "quantity": "Quantity",
+    "submit": "Reserve",
+    "created": "Reservation created",
+    "error": "Operation failed"
+  },
+  "members": {
+    "title": "Members",
+    "placeholder": "Member management coming soon",
+    "inviteMember": "Invite Member",
+    "noMembers": "No members yet",
+    "email": "Email",
+    "role": "Role"
+  },
+  "checkInOut": {
+    "title": "Check In/Out",
+    "placeholder": "Scan tools to check in or out"
+  },
+  "billing": {
+    "title": "Billing & Fines",
+    "placeholder": "Payments and late fees"
+  },
+  "maintenance": {
+    "title": "Maintenance",
+    "placeholder": "Track maintenance tasks"
+  },
+  "analytics": {
+    "title": "Analytics",
+    "placeholder": "Usage statistics and reports"
+  },
+  "landing": {
+    "heroTitle": "Borrow tools easily instead of buying.",
+    "heroDescription": "Discover how Equipassa simplifies tool sharing.",
+    "registerButton": "Register now",
+    "loginButton": "Login",
+    "advantages": {
+      "easy": "Borrow with ease",
+      "sustainable": "Act sustainably",
+      "saveMoney": "Save money",
+      "easyText": "Reserve tools online and use them right away.",
+      "sustainableText": "Share resources and reduce new purchases.",
+      "saveMoneyText": "Pay only for usage instead of ownership."
+    },
+    "steps": {
+      "register": "Register",
+      "reserve": "Reserve tool",
+      "pickup": "Pick up & start"
+    },
+    "privacy": "Privacy",
+    "imprint": "Imprint",
+    "contact": "Contact"
+  }
+}
