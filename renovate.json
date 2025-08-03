@@ -1,0 +1,69 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:recommended",
+    ":dependencyDashboard",
+    "group:monorepos",
+    "schedule:weekly"
+  ],
+  "platformAutomerge": true,
+  "prConcurrentLimit": 4,
+  "prHourlyLimit": 2,
+  "timezone": "Europe/Berlin",
+  "labels": ["dependencies", "renovate"],
+  "assignees": ["knmaher"],
+  "reviewers": ["knmaher"],
+  "packageRules": [
+    {
+      "matchPackagePatterns": [
+        "^vue$",
+        "^vue-router$",
+        "^pinia$"
+      ],
+      "groupName": "Vue core",
+      "semanticCommitType": "fix"
+    },
+    {
+      "matchPackagePatterns": [
+        "^vite",
+        "@vitejs/",
+        "vite-plugin-"
+      ],
+      "groupName": "Vite & plugins"
+    },
+    {
+      "matchPackagePatterns": [
+        "^naive-ui$",
+        "^@vicons/"
+      ],
+      "groupName": "UI libraries"
+    },
+    {
+      "matchPackagePatterns": [
+        "^eslint",
+        "^@typescript-eslint/",
+        "^prettier",
+        "^vitest$",
+        "^@vitest/",
+        "^playwright",
+        "^@types/",
+        "^vue-tsc"
+      ],
+      "depTypeList": ["devDependencies"],
+      "groupName": "Build / Lint / Test tools",
+      "automerge": true,
+      "automergeType": "pr"
+    },
+    {
+      "matchDepTypes": ["dependencies"],
+      "matchUpdateTypes": ["patch", "minor"],
+      "automerge": true,
+      "automergeType": "pr",
+      "schedule": ["on friday after 07:00"]
+    },
+    {
+      "matchUpdateTypes": ["major"],
+      "dependencyDashboardApproval": true
+    }
+  ]
+}

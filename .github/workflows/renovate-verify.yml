@@ -1,0 +1,31 @@
+name: Renovate Verification (Frontend)
+
+on:
+  pull_request:
+    paths:
+      - 'package.json'
+      - 'package-lock.json'
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20   # ← match your project
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm ci
+
+      - name: Build
+        run: pnpm run build --if-present
+
+      - name: Lint
+        run: pnpm run lint --if-present
+
+      - name: Unit tests
+        run: pnpm run test:unit --if-present
