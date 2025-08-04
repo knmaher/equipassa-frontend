@@ -42,7 +42,7 @@ const items: NavItem[] = [
   { label: 'Analytics', key: '/analytics', icon: BarChartOutline, to: '/analytics' },
 ]
 
-const menuOptions: MenuOption[] = items.map(i => ({
+const menuOptions: MenuOption[] = items.map((i) => ({
   label: i.label,
   key: i.key,
   icon: renderIcon(i.icon),
@@ -52,13 +52,8 @@ const menuOptions: MenuOption[] = items.map(i => ({
 
 <template>
   <nav aria-label="Main" class="h-full">
-    <n-menu
-      :options="menuOptions"
-      :value="activeKey"
-      @update:value="handleUpdate"
-    />
+    <n-menu :options="menuOptions" :value="activeKey" @update:value="handleUpdate" />
   </nav>
 </template>
 
-<style scoped>
-</style>
+<style scoped></style>

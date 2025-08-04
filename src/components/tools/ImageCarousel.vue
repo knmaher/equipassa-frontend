@@ -19,9 +19,5 @@ const props = defineProps<{ images: string[] }>()
       class="w-full h-32 rounded-xl object-cover"
     />
   </n-carousel>
-  <div
-    v-else
-    class="w-full h-32 rounded-xl bg-gray-100 dark:bg-neutral-700"
-  />
+  <div v-else class="w-full h-32 rounded-xl bg-gray-100 dark:bg-neutral-700" />
 </template>
-

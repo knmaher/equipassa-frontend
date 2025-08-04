@@ -16,8 +16,8 @@ const props = withDefaults(
     category: '',
     conditionStatus: '',
     quantityAvailable: 0,
-    images: () => []
-  }
+    images: () => [],
+  },
 )
 </script>
 
@@ -42,5 +42,4 @@ const props = withDefaults(
   </n-card>
 </template>
 
-<style scoped>
-</style>
+<style scoped></style>

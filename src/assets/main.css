@@ -24,7 +24,9 @@ a,
 .green {
   text-decoration: none;
   color: var(--color-accent);
-  transition: color 0.4s, background-color 0.4s;
+  transition:
+    color 0.4s,
+    background-color 0.4s;
   padding: 3px;
 }
 

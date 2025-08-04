@@ -8,12 +8,7 @@
     </div>
     <p v-if="error" class="text-red-500">{{ error }}</p>
     <p v-if="!tools.length" class="text-gray-600">{{ t('reservations.placeholder') }}</p>
-    <ReserveDialog
-      v-model:show="showForm"
-      :tools="tools"
-      :loading="loading"
-      @save="handleSave"
-    />
+    <ReserveDialog v-model:show="showForm" :tools="tools" :loading="loading" @save="handleSave" />
   </div>
 </template>
 

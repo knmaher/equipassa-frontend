@@ -12,7 +12,7 @@ export const useUiStore = defineStore('ui', () => {
     sidebarCollapsed.value = stored === 'true'
   }
 
-  watch(sidebarCollapsed, val => {
+  watch(sidebarCollapsed, (val) => {
     localStorage.setItem('sidebar-collapsed', String(val))
   })
 
