@@ -92,5 +92,4 @@ async function onSubmit() {
   </n-modal>
 </template>
 
-<style scoped>
-</style>
+<style scoped></style>

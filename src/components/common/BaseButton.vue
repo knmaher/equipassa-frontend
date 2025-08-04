@@ -3,43 +3,46 @@ import { computed } from 'vue'
 import { NButton } from 'naive-ui'
 import type { ButtonProps } from 'naive-ui'
 
-const props = withDefaults(defineProps<{
-  /**
-   * Naive‑UI button semantic type (primary, default, info, success, warning, error)
-   */
-  type?: ButtonProps['type']
-  /**
-   * Visual variant following Equipassa design tokens
-   */
-  variant?: 'primary' | 'secondary' | 'danger' | 'ghost'
-  /**
-   * Button size
-   */
-  size?: 'sm' | 'md' | 'lg'
-  /**
-   * Disable state
-   */
-  disabled?: boolean
-  /**
-   * Loading state
-   */
-  loading?: boolean
-  /**
-   * Whether the button takes full width
-   */
-  block?: boolean
-  /**
-   * Accessible label (recommended when only an icon is provided)
-   */
-  ariaLabel?: string
-}>(), {
-  type: 'primary',
-  variant: 'primary',
-  size: 'md',
-  disabled: false,
-  loading: false,
-  block: false
-})
+const props = withDefaults(
+  defineProps<{
+    /**
+     * Naive‑UI button semantic type (primary, default, info, success, warning, error)
+     */
+    type?: ButtonProps['type']
+    /**
+     * Visual variant following Equipassa design tokens
+     */
+    variant?: 'primary' | 'secondary' | 'danger' | 'ghost'
+    /**
+     * Button size
+     */
+    size?: 'sm' | 'md' | 'lg'
+    /**
+     * Disable state
+     */
+    disabled?: boolean
+    /**
+     * Loading state
+     */
+    loading?: boolean
+    /**
+     * Whether the button takes full width
+     */
+    block?: boolean
+    /**
+     * Accessible label (recommended when only an icon is provided)
+     */
+    ariaLabel?: string
+  }>(),
+  {
+    type: 'primary',
+    variant: 'primary',
+    size: 'md',
+    disabled: false,
+    loading: false,
+    block: false,
+  },
+)
 
 const emit = defineEmits<{
   (e: 'click', evt: MouseEvent): void
@@ -86,5 +89,4 @@ const variantClass = computed(() => {
   </n-button>
 </template>
 
-<style scoped>
-</style>
+<style scoped></style>

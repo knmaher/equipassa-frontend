@@ -13,5 +13,4 @@ const { t } = useI18n()
   </n-steps>
 </template>
 
-<style scoped>
-</style>
+<style scoped></style>

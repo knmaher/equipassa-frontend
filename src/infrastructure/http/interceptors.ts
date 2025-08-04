@@ -3,7 +3,7 @@ import { useAuthStore } from '@/modules/auth/store'
 
 export async function attachAuthHeader(
   request: Request,
-  options: RequestOptions
+  options: RequestOptions,
 ): Promise<Request> {
   if (options.security && options.security.length > 0) {
     const token = useAuthStore().token
@@ -19,7 +19,7 @@ export async function attachAuthHeader(
 export async function handleAuthError(
   response: Response,
   _request: Request,
-  options: RequestOptions
+  options: RequestOptions,
 ): Promise<Response> {
   if (response.status === 401) {
     const authStore = useAuthStore()
@@ -30,7 +30,7 @@ export async function handleAuthError(
         const tokens = await refreshToken({
           body: { refreshToken: refresh },
           throwOnError: true,
-          responseStyle: 'data'
+          responseStyle: 'data',
         })
         authStore.setTokens(tokens.data.token ?? null, tokens.data.refreshToken ?? null)
         const { apiClient } = await import('./ApiClient')
@@ -40,7 +40,7 @@ export async function handleAuthError(
           ...options,
           method: options.method ?? 'GET',
           headers,
-          responseStyle: 'fields'
+          responseStyle: 'fields',
         })
         return result.response
       } catch {

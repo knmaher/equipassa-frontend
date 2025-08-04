@@ -1,17 +1,7 @@
 <script setup lang="ts">
-import {
-  NButton,
-  NIcon,
-  NInput,
-  NDropdown,
-} from 'naive-ui'
+import { NButton, NIcon, NInput, NDropdown } from 'naive-ui'
 import { useUiStore } from '@/stores/ui'
-import {
-  MenuOutline,
-  NotificationsOutline,
-  MoonOutline,
-  SunnyOutline,
-} from '@vicons/ionicons5'
+import { MenuOutline, NotificationsOutline, MoonOutline, SunnyOutline } from '@vicons/ionicons5'
 import { LayoutSidebarLeftExpand, LayoutSidebarRightExpand, UserCircle } from '@vicons/tabler'
 import SettingsDrawer from './SettingsDrawer.vue'
 import { ref } from 'vue'
@@ -54,30 +44,19 @@ function handleSelect(key: string) {
         aria-label="Toggle sidebar"
         @click="ui.toggleSidebar"
       >
-        <n-icon
-          :size="24"
-        >
+        <n-icon :size="24">
           <component
-            :is="ui.sidebarCollapsed
-              ? LayoutSidebarRightExpand
-              : LayoutSidebarLeftExpand"
+            :is="ui.sidebarCollapsed ? LayoutSidebarRightExpand : LayoutSidebarLeftExpand"
           />
         </n-icon>
       </n-button>
       <img src="../../assets/images/logo.svg" alt="Logo" class="w-[clamp(3rem,8vw,8rem)] h-auto" />
     </div>
     <div class="flex items-center space-x-3">
-      <n-input
-        placeholder="Search"
-        size="small"
-        class="w-32 md:w-64"
-      />
-      <n-button
-        text
-        aria-label="Notifications"
-      >
+      <n-input placeholder="Search" size="small" class="w-32 md:w-64" />
+      <n-button text aria-label="Notifications">
         <n-icon :size="24">
-          <NotificationsOutline  class="text-gray-600 dark:text-gray-300"/>
+          <NotificationsOutline class="text-gray-600 dark:text-gray-300" />
         </n-icon>
       </n-button>
       <n-button
@@ -86,9 +65,7 @@ function handleSelect(key: string) {
         class="text-gray-600 dark:text-gray-300"
         @click="ui.toggleTheme"
       >
-        <n-icon
-          :size="24"
-        >
+        <n-icon :size="24">
           <component :is="ui.theme === 'dark' ? SunnyOutline : MoonOutline" />
         </n-icon>
       </n-button>
@@ -98,10 +75,8 @@ function handleSelect(key: string) {
         @select="handleSelect"
         aria-label="User menu"
       >
-        <n-icon
-          :size="24"
-        >
-          <UserCircle class="text-gray-600 dark:text-gray-300"/>
+        <n-icon :size="24">
+          <UserCircle class="text-gray-600 dark:text-gray-300" />
         </n-icon>
       </n-dropdown>
     </div>
@@ -109,5 +84,4 @@ function handleSelect(key: string) {
   <SettingsDrawer v-model:show="showSettings" />
 </template>
 
-<style scoped>
-</style>
+<style scoped></style>

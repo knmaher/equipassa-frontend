@@ -31,7 +31,7 @@ export function useTools() {
         throwOnError: true,
         responseStyle: 'data',
       })
-      tools.value = Array.isArray(resp) ? resp : (resp as any)?.content ?? []
+      tools.value = Array.isArray(resp) ? resp : ((resp as any)?.content ?? [])
     } catch (e) {
       error.value = extractErrorMessage(e, 'Failed to fetch tools')
       throw e
@@ -48,7 +48,7 @@ export function useTools() {
         client: apiClient,
         body: buildForm(data, files) as any,
         throwOnError: true,
-        responseStyle: 'data'
+        responseStyle: 'data',
       })
       await fetchTools()
     } catch (e) {
@@ -68,7 +68,7 @@ export function useTools() {
         path: { id: BigInt(id) },
         body: buildForm(data, files) as any,
         throwOnError: true,
-        responseStyle: 'data'
+        responseStyle: 'data',
       })
       await fetchTools()
     } catch (e) {

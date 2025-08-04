@@ -27,5 +27,4 @@ const { t } = useI18n()
   </n-modal>
 </template>
 
-<style scoped>
-</style>
+<style scoped></style>

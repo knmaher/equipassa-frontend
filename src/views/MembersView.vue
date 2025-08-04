@@ -2,11 +2,7 @@
   <div>
     <div class="flex items-center justify-between mb-4">
       <h1 class="text-2xl font-semibold">{{ t('members.title') }}</h1>
-      <n-button
-        v-if="isOrgAdmin"
-        type="primary"
-        @click="showInvite = true"
-      >
+      <n-button v-if="isOrgAdmin" type="primary" @click="showInvite = true">
         + {{ t('members.inviteMember') }}
       </n-button>
     </div>
@@ -32,10 +28,9 @@ const members = ref<any[]>([])
 
 const isOrgAdmin = computed(() => {
   const role = auth.userRole === 'ORG_ADMIN'
-  console.log("role", auth.userRole)
+  console.log('role', auth.userRole)
   return role
 })
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>

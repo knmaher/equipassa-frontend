@@ -4,10 +4,7 @@ import { NUpload, useMessage } from 'naive-ui'
 import { useI18n } from 'vue-i18n'
 import type { UploadFileInfo } from 'naive-ui'
 
-const props = withDefaults(
-  defineProps<{ fileList: UploadFileInfo[]; max?: number }>(),
-  { max: 3 }
-)
+const props = withDefaults(defineProps<{ fileList: UploadFileInfo[]; max?: number }>(), { max: 3 })
 
 const emit = defineEmits<{
   (e: 'update:fileList', value: UploadFileInfo[]): void
@@ -22,11 +19,13 @@ const files = ref<UploadFileInfo[]>([...props.fileList])
 
 watch(
   () => props.fileList,
-  (val) => { files.value = [...val] },
-  { deep: true }
+  (val) => {
+    files.value = [...val]
+  },
+  { deep: true },
 )
 
-function handleChange ({ fileList }: { fileList: UploadFileInfo[] }) {
+function handleChange({ fileList }: { fileList: UploadFileInfo[] }) {
   const valid: UploadFileInfo[] = []
   const added: File[] = []
 
@@ -46,9 +45,7 @@ function handleChange ({ fileList }: { fileList: UploadFileInfo[] }) {
     valid.push(item)
   }
 
-  const removed = files.value.find(
-    prev => !valid.some(now => now.id === prev.id)
-  )
+  const removed = files.value.find((prev) => !valid.some((now) => now.id === prev.id))
 
   if (added.length) emit('add', added)
   if (removed) emit('remove', removed)
@@ -62,7 +59,7 @@ function handleChange ({ fileList }: { fileList: UploadFileInfo[] }) {
 }
 
 onBeforeUnmount(() => {
-  files.value.forEach(f => f.url && URL.revokeObjectURL(f.url))
+  files.value.forEach((f) => f.url && URL.revokeObjectURL(f.url))
 })
 </script>
 
