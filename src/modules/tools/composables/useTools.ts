@@ -15,11 +15,11 @@ export function useTools() {
   const loading = ref(false)
   const error = ref<string | null>(null)
 
-  function buildForm(data: ToolRequest, files: File[]): FormData {
+  function buildMultipart(data: ToolRequest, files: File[] = []) {
     return {
-      toolRequest: new Blob([JSON.stringify(data)], { type: 'application/json' }),
+      toolRequest: data,
       files,
-    }
+    } as const
   }
 
   async function fetchTools() {
@@ -46,7 +46,7 @@ export function useTools() {
     try {
       await createTool({
         client: apiClient,
-        body: buildForm(data, files) as any,
+        body: buildMultipart(data, files),
         throwOnError: true,
         responseStyle: 'data',
       })
@@ -66,7 +66,7 @@ export function useTools() {
       await updateTool({
         client: apiClient,
         path: { id: BigInt(id) },
-        body: buildForm(data, files) as any,
+        body: buildMultipart(data, files),
         throwOnError: true,
         responseStyle: 'data',
       })

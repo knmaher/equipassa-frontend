@@ -14,7 +14,7 @@ export function useRegisterOrg() {
     error.value = null
 
     try {
-      const resp = await registerOrgRequest({
+      const { data: resp } = await registerOrgRequest({
         client: apiClient,
         body: payload,
         throwOnError: true,

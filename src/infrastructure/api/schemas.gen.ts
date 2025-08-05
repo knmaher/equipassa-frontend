@@ -83,12 +83,6 @@ export const CustomUserDetailsSchema = {
     enabled: {
       type: 'boolean',
     },
-    accountNonExpired: {
-      type: 'boolean',
-    },
-    credentialsNonExpired: {
-      type: 'boolean',
-    },
     authorities: {
       type: 'array',
       items: {
@@ -98,7 +92,13 @@ export const CustomUserDetailsSchema = {
     username: {
       type: 'string',
     },
+    credentialsNonExpired: {
+      type: 'boolean',
+    },
     accountNonLocked: {
+      type: 'boolean',
+    },
+    accountNonExpired: {
       type: 'boolean',
     },
   },
