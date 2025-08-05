@@ -14,16 +14,17 @@ export function useLogin() {
     loading.value = true
     error.value = null
     try {
-      const resp = await loginRequest({
+      const { data: resp } = await loginRequest({
         body: payload,
         throwOnError: true,
         responseStyle: 'data',
       })
+
       result.value = resp
       authStore.setTokens(resp.token ?? null, resp.refreshToken ?? null)
       authStore.setUserInfo(resp.userRole ?? null, resp.email ?? null)
       return resp
-    } catch (e: Error | unknown) {
+    } catch (e) {
       error.value = extractErrorMessage(e, 'Login failed')
       throw e
     } finally {

@@ -25,11 +25,11 @@ export type CustomUserDetails = {
   mfaEnabled?: boolean
   organizationId?: bigint
   enabled?: boolean
-  accountNonExpired?: boolean
-  credentialsNonExpired?: boolean
   authorities?: Array<GrantedAuthority>
   username?: string
+  credentialsNonExpired?: boolean
   accountNonLocked?: boolean
+  accountNonExpired?: boolean
 }
 
 export type GrantedAuthority = {
@@ -492,9 +492,7 @@ export type ReserveResponse = ReserveResponses[keyof ReserveResponses]
 export type InviteData = {
   body: InviteUserRequest
   path?: never
-  query: {
-    admin: CustomUserDetails
-  }
+  query?: never
   url: '/api/invitations/invite'
 }
 
