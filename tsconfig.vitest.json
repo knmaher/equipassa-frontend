@@ -1,15 +1,9 @@
 {
   "extends": "./tsconfig.app.json",
+  "exclude": [],
   "compilerOptions": {
-    "types": ["vitest/globals", "node", "jsdom"],
-    "composite": true
-  },
-
-  "include": [
-    "env.d.ts",
-    "src/**/*",
-    "src/**/__tests__/**/*"
-  ],
-
-  "exclude": []
+    "composite": true,
+    "lib": ["ESNext", "DOM"],
+    "types": ["node", "jsdom"]
+  }
 }
