@@ -1,24 +1,26 @@
 <script setup lang="ts">
 import { computed, useAttrs, defineOptions } from 'vue'
-import { NButton, type ButtonProps } from 'naive-ui'
+import { NButton } from 'naive-ui'
 import { omit } from 'lodash-es'
 
 defineOptions({ name: 'EqButton' })
 
-type CustomProps = {
-  variant?: 'primary' | 'secondary' | 'danger' | 'ghost'
-  size?: 'sm' | 'md' | 'lg'
-  block?: boolean
-  ariaLabel?: string
-}
-
-type PassThrough = Omit<ButtonProps, 'size' | 'type' | 'block'>
-
-const props = withDefaults(defineProps<PassThrough & CustomProps>(), {
-  type: 'default',
-  variant: 'primary',
-  size: 'md',
-  block: false,
+const props = defineProps({
+  variant: {
+    type: String as () => 'primary' | 'secondary' | 'danger' | 'ghost',
+    default: 'primary',
+  },
+  size: {
+    type: String as () => 'sm' | 'md' | 'lg',
+    default: 'md',
+  },
+  block: {
+    type: Boolean,
+    default: false,
+  },
+  ariaLabel: String,
+  disabled: Boolean,
+  loading: Boolean,
 })
 
 const emit = defineEmits<{ (e: 'click', evt: MouseEvent): void }>()
