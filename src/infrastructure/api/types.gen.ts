@@ -25,11 +25,11 @@ export type CustomUserDetails = {
   mfaEnabled?: boolean
   organizationId?: bigint
   enabled?: boolean
-  authorities?: Array<GrantedAuthority>
-  username?: string
+  accountNonExpired?: boolean
   credentialsNonExpired?: boolean
   accountNonLocked?: boolean
-  accountNonExpired?: boolean
+  username?: string
+  authorities?: Array<GrantedAuthority>
 }
 
 export type GrantedAuthority = {
@@ -53,25 +53,6 @@ export type ReservationResponse = {
   checkedOutAt?: Date
   returnedAt?: Date
   quantity?: number
-}
-
-export type MfaVerificationRequest = {
-  code?: string
-  rememberDevice?: boolean
-}
-
-export type AuthResponse = {
-  token?: string
-  mfaRequired?: boolean
-  expiresIn?: bigint
-  userId?: bigint
-  refreshToken?: string
-  userRole?: string
-  email?: string
-}
-
-export type MfaEnableRequest = {
-  code?: string
 }
 
 export type AddressRequest = {
@@ -171,10 +152,6 @@ export type OrgUserResponse = {
   adminEmail?: string
 }
 
-export type RefreshTokenRequest = {
-  refreshToken?: string
-}
-
 export type PasswordResetRequest = {
   email: string
 }
@@ -189,8 +166,20 @@ export type LoginRequest = {
   password?: string
 }
 
-export type MfaQrResponse = {
-  qrCodeUri?: string
+export type AuthResponse = {
+  token?: string
+  mfaRequired?: boolean
+  expiresIn?: bigint
+  userId?: bigint
+  refreshToken?: string
+  userRole?: string
+  email?: string
+}
+
+export type CsrfDto = {
+  headerName?: string
+  parameterName?: string
+  token?: string
 }
 
 export type DeleteToolData = {
@@ -267,45 +256,6 @@ export type ModifyResponses = {
 }
 
 export type ModifyResponse = ModifyResponses[keyof ModifyResponses]
-
-export type VerifyMfaData = {
-  body: MfaVerificationRequest
-  headers: {
-    Authorization: string
-  }
-  path?: never
-  query?: never
-  url: '/mfa/verify'
-}
-
-export type VerifyMfaResponses = {
-  /**
-   * OK
-   */
-  200: AuthResponse
-}
-
-export type VerifyMfaResponse = VerifyMfaResponses[keyof VerifyMfaResponses]
-
-export type EnableMfaData = {
-  body: MfaEnableRequest
-  path?: never
-  query: {
-    currentUser: CustomUserDetails
-  }
-  url: '/mfa/enable'
-}
-
-export type EnableMfaResponses = {
-  /**
-   * OK
-   */
-  200: {
-    [key: string]: unknown
-  }
-}
-
-export type EnableMfaResponse = EnableMfaResponses[keyof EnableMfaResponses]
 
 export type GetProfileData = {
   body?: never
@@ -553,22 +503,6 @@ export type RegisterOrgResponses = {
 
 export type RegisterOrgResponse = RegisterOrgResponses[keyof RegisterOrgResponses]
 
-export type RefreshTokenData = {
-  body: RefreshTokenRequest
-  path?: never
-  query?: never
-  url: '/api/auth/refresh'
-}
-
-export type RefreshTokenResponses = {
-  /**
-   * OK
-   */
-  200: AuthResponse
-}
-
-export type RefreshTokenResponse = RefreshTokenResponses[keyof RefreshTokenResponses]
-
 export type RequestPasswordResetData = {
   body: PasswordResetRequest
   path?: never
@@ -599,9 +533,6 @@ export type ConfirmPasswordResetResponses = {
 
 export type LogoutData = {
   body?: never
-  headers: {
-    Authorization: string
-  }
   path?: never
   query?: never
   url: '/api/auth/logout'
@@ -630,23 +561,33 @@ export type LoginResponses = {
 
 export type LoginResponse = LoginResponses[keyof LoginResponses]
 
-export type GetMfaQrCodeData = {
+export type ReadinessData = {
   body?: never
   path?: never
-  query: {
-    currentUser: CustomUserDetails
-  }
-  url: '/mfa/qr-code'
+  query?: never
+  url: '/kube/readiness'
 }
 
-export type GetMfaQrCodeResponses = {
+export type ReadinessResponses = {
   /**
    * OK
    */
-  200: MfaQrResponse
+  200: unknown
 }
 
-export type GetMfaQrCodeResponse = GetMfaQrCodeResponses[keyof GetMfaQrCodeResponses]
+export type LivenessData = {
+  body?: never
+  path?: never
+  query?: never
+  url: '/kube/liveness'
+}
+
+export type LivenessResponses = {
+  /**
+   * OK
+   */
+  200: unknown
+}
 
 export type VerifyEmailData = {
   body?: never
@@ -665,6 +606,38 @@ export type VerifyEmailResponses = {
 }
 
 export type VerifyEmailResponse = VerifyEmailResponses[keyof VerifyEmailResponses]
+
+export type MeData = {
+  body?: never
+  path?: never
+  query?: never
+  url: '/api/auth/me'
+}
+
+export type MeResponses = {
+  /**
+   * OK
+   */
+  200: UserResponse
+}
+
+export type MeResponse = MeResponses[keyof MeResponses]
+
+export type CsrfData = {
+  body?: never
+  path?: never
+  query?: never
+  url: '/api/auth/csrf'
+}
+
+export type CsrfResponses = {
+  /**
+   * OK
+   */
+  200: CsrfDto
+}
+
+export type CsrfResponse = CsrfResponses[keyof CsrfResponses]
 
 export type ClientOptions = {
   baseUrl: 'http://localhost:8081' | (string & {})

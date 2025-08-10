@@ -1,29 +1,30 @@
 import { ref } from 'vue'
-import type { LoginRequest, AuthResponse } from '@/infrastructure/api'
+import type { LoginRequest } from '@/infrastructure/api'
 import { login as loginRequest } from '@/infrastructure/api'
 import { useAuthStore } from '../store'
 import { extractErrorMessage } from '@/utils/errors'
+import { ensureCsrf } from '@/infrastructure/http/ApiClient'
 
 export function useLogin() {
   const loading = ref(false)
   const error = ref<string | null>(null)
-  const result = ref<AuthResponse | null>(null)
-  const authStore = useAuthStore()
+  const auth = useAuthStore()
 
   async function login(payload: LoginRequest) {
     loading.value = true
     error.value = null
     try {
-      const { data: resp } = await loginRequest({
+      await ensureCsrf() // seed XSRF-TOKEN cookie
+
+      const { data } = await loginRequest({
         body: payload,
         throwOnError: true,
         responseStyle: 'data',
+        credentials: 'include',
       })
 
-      result.value = resp
-      authStore.setTokens(resp.token ?? null, resp.refreshToken ?? null)
-      authStore.setUserInfo(resp.userRole ?? null, resp.email ?? null)
-      return resp
+      auth.setUserInfo(data.userRole!, data.email!)
+      return data
     } catch (e) {
       error.value = extractErrorMessage(e, 'Login failed')
       throw e
@@ -32,5 +33,5 @@ export function useLogin() {
     }
   }
 
-  return { login, loading, error, result }
+  return { login, loading, error }
 }
