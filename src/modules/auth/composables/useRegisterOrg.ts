@@ -3,6 +3,7 @@ import type { OrgRegistrationRequest, OrgUserResponse } from '@/infrastructure/a
 import { registerOrg as registerOrgRequest } from '@/infrastructure/api'
 import { apiClient } from '@/infrastructure/http/ApiClient'
 import { extractErrorMessage } from '@/utils/errors'
+import { ensureCsrf } from '../../../infrastructure/http/ApiClient'
 
 export function useRegisterOrg() {
   const loading = ref(false)
@@ -12,13 +13,14 @@ export function useRegisterOrg() {
   async function registerOrg(payload: OrgRegistrationRequest) {
     loading.value = true
     error.value = null
-
     try {
+      await ensureCsrf()
       const { data: resp } = await registerOrgRequest({
         client: apiClient,
         body: payload,
         throwOnError: true,
         responseStyle: 'data',
+        credentials: 'include',
       })
       result.value = resp
       return resp

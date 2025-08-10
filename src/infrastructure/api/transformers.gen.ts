@@ -4,7 +4,6 @@ import type {
   GetToolByIdResponse,
   UpdateToolResponse,
   ModifyResponse,
-  VerifyMfaResponse,
   GetProfileResponse,
   UpdateProfileResponse,
   GetToolsResponse,
@@ -18,8 +17,8 @@ import type {
   AcceptInviteResponse,
   RegisterResponse,
   RegisterOrgResponse,
-  RefreshTokenResponse,
   LoginResponse,
+  MeResponse,
 } from './types.gen'
 
 const toolResponseSchemaResponseTransformer = (data: any) => {
@@ -66,21 +65,6 @@ const reservationResponseSchemaResponseTransformer = (data: any) => {
 
 export const modifyResponseTransformer = async (data: any): Promise<ModifyResponse> => {
   data = reservationResponseSchemaResponseTransformer(data)
-  return data
-}
-
-const authResponseSchemaResponseTransformer = (data: any) => {
-  if (data.expiresIn) {
-    data.expiresIn = BigInt(data.expiresIn.toString())
-  }
-  if (data.userId) {
-    data.userId = BigInt(data.userId.toString())
-  }
-  return data
-}
-
-export const verifyMfaResponseTransformer = async (data: any): Promise<VerifyMfaResponse> => {
-  data = authResponseSchemaResponseTransformer(data)
   return data
 }
 
@@ -197,12 +181,22 @@ export const registerOrgResponseTransformer = async (data: any): Promise<Registe
   return data
 }
 
-export const refreshTokenResponseTransformer = async (data: any): Promise<RefreshTokenResponse> => {
-  data = authResponseSchemaResponseTransformer(data)
+const authResponseSchemaResponseTransformer = (data: any) => {
+  if (data.expiresIn) {
+    data.expiresIn = BigInt(data.expiresIn.toString())
+  }
+  if (data.userId) {
+    data.userId = BigInt(data.userId.toString())
+  }
   return data
 }
 
 export const loginResponseTransformer = async (data: any): Promise<LoginResponse> => {
   data = authResponseSchemaResponseTransformer(data)
+  return data
+}
+
+export const meResponseTransformer = async (data: any): Promise<MeResponse> => {
+  data = userResponseSchemaResponseTransformer(data)
   return data
 }
