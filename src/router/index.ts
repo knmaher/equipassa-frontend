@@ -78,7 +78,7 @@ router.beforeEach(async (to) => {
 
   if (to.meta.requiresAuth) {
     if (!auth.initialized) {
-      await auth.init()            // ruft /api/auth/me hier – nur wenn nötig
+      await auth.init() // ruft /api/auth/me hier – nur wenn nötig
     }
     if (!auth.isAuthenticated) {
       return { path: '/login', query: { redirect: to.fullPath } }

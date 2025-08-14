@@ -40,15 +40,17 @@ heyClient.interceptors.response.use(async (response, request, options) => {
   if (response.status !== 403) return response
 
   const method = request.method?.toUpperCase()
-  const unsafe = method && !['GET','HEAD','OPTIONS','TRACE'].includes(method)
+  const unsafe = method && !['GET', 'HEAD', 'OPTIONS', 'TRACE'].includes(method)
   if (!unsafe) return response
 
   await ensureCsrf()
-  return (options.client ?? heyClient).request({
-    ...options,
-    credentials: 'include',
-    method: method as any,
-  }).then(r => r.response)
+  return (options.client ?? heyClient)
+    .request({
+      ...options,
+      credentials: 'include',
+      method: method as any,
+    })
+    .then((r) => r.response)
 })
 
 export const apiClient = heyClient
