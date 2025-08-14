@@ -20,16 +20,16 @@ export type ToolResponse = {
 
 export type CustomUserDetails = {
   id?: bigint
-  password?: string
   role?: 'MEMBER' | 'ADMIN' | 'USER' | 'ORG_ADMIN' | 'STAFF'
   mfaEnabled?: boolean
   organizationId?: bigint
   enabled?: boolean
-  accountNonExpired?: boolean
+  password?: string
+  authorities?: Array<GrantedAuthority>
+  username?: string
   credentialsNonExpired?: boolean
   accountNonLocked?: boolean
-  username?: string
-  authorities?: Array<GrantedAuthority>
+  accountNonExpired?: boolean
 }
 
 export type GrantedAuthority = {

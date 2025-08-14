@@ -86,7 +86,12 @@ async function onSubmit() {
               </n-checkbox>
             </n-form-item>
             <n-form-item>
-              <n-button type="primary" block size="large" :loading="loading" @click="onSubmit">
+              <n-button
+                type="primary"
+                block size="large"
+                :loading="loading"
+                attr-type="submit"
+              >
                 {{ t('login.submit') }}
               </n-button>
             </n-form-item>
