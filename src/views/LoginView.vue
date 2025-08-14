@@ -34,7 +34,6 @@ async function onSubmit() {
   try {
     await formRef.value?.validate()
     await login({ email: form.email, password: form.password })
-    await router.push('/dashboard')
   } catch {
     message.error(t('login.error'))
   }
