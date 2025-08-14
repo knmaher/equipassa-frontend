@@ -66,9 +66,6 @@ export const CustomUserDetailsSchema = {
       type: 'integer',
       format: 'int64',
     },
-    password: {
-      type: 'string',
-    },
     role: {
       type: 'string',
       enum: ['MEMBER', 'ADMIN', 'USER', 'ORG_ADMIN', 'STAFF'],
@@ -83,16 +80,7 @@ export const CustomUserDetailsSchema = {
     enabled: {
       type: 'boolean',
     },
-    accountNonExpired: {
-      type: 'boolean',
-    },
-    credentialsNonExpired: {
-      type: 'boolean',
-    },
-    accountNonLocked: {
-      type: 'boolean',
-    },
-    username: {
+    password: {
       type: 'string',
     },
     authorities: {
@@ -100,6 +88,18 @@ export const CustomUserDetailsSchema = {
       items: {
         $ref: '#/components/schemas/GrantedAuthority',
       },
+    },
+    username: {
+      type: 'string',
+    },
+    credentialsNonExpired: {
+      type: 'boolean',
+    },
+    accountNonLocked: {
+      type: 'boolean',
+    },
+    accountNonExpired: {
+      type: 'boolean',
     },
   },
 } as const

@@ -73,12 +73,19 @@ const router = createRouter({
   ],
 })
 
-router.beforeEach((to) => {
-  const { token } = useAuthStore()
-  const isLoggedIn = Boolean(token || localStorage.getItem('token'))
-  if (to.meta.requiresAuth && !isLoggedIn) {
-    return { path: '/' }
+router.beforeEach(async (to) => {
+  const auth = useAuthStore()
+
+  if (!auth.initialized) {
+    await auth.init()
   }
+
+  const isLoggedIn = auth.isAuthenticated
+
+  if (to.meta.requiresAuth && !isLoggedIn) {
+    return { path: '/login', query: { redirect: to.fullPath } }
+  }
+
   if (isLoggedIn && (to.path === '/' || to.path === '/login')) {
     return { path: '/dashboard' }
   }
