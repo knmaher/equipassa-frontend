@@ -1,11 +1,11 @@
 // src/modules/auth/composables/useLogin.ts
-import { apiClient, ensureCsrf } from '@/infrastructure/http/ApiClient'
-import { login as loginRequest } from '@/infrastructure/api'
-import { useAuthStore } from '../store'
 import { ref } from 'vue'
+import { useRouter, useRoute } from 'vue-router'
+import { apiClient, ensureCsrf } from '@/infrastructure/http/ApiClient'
+import { login as loginRequest, me } from '@/infrastructure/api'
+import { useAuthStore } from '../store'
 import type { LoginRequest } from '@/infrastructure/api'
 import { extractErrorMessage } from '@/utils/errors'
-import { useRouter, useRoute } from 'vue-router'
 
 export function useLogin() {
   const loading = ref(false)
@@ -20,6 +20,7 @@ export function useLogin() {
     try {
       await ensureCsrf()
 
+      // 1) Login -> setzt EQUIPASSA_SESSION (HttpOnly)
       await loginRequest({
         client: apiClient,
         body: payload,
@@ -28,14 +29,15 @@ export function useLogin() {
         credentials: 'include',
       })
 
-      const me = await apiClient.request({
-        url: '/api/auth/me',
-        method: 'GET',
+      // 2) Roundtrip, um Session zu verifizieren & Store zu füllen
+      const meRes = await me({
+        client: apiClient,
         responseStyle: 'data',
         credentials: 'include',
       })
-      auth.setUserInfo(me.data.userRole, me.data.email)
+      auth.setUserInfo(meRes.userRole!, meRes.email!)
 
+      // 3) Redirect
       const redirect = (route.query.redirect as string) || '/dashboard'
       await router.replace(redirect)
     } catch (e) {

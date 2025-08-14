@@ -2,6 +2,7 @@
 import { defineStore } from 'pinia'
 import { ref, computed } from 'vue'
 import { apiClient } from '@/infrastructure/http/ApiClient'
+import { me, logout as apiLogout } from '@/infrastructure/api'
 
 export const useAuthStore = defineStore('auth', () => {
   const userRole = ref<string | null>(null)
@@ -21,13 +22,13 @@ export const useAuthStore = defineStore('auth', () => {
     if (initialized.value) return
     initialized.value = true
     try {
-      const { data } = await apiClient.request({
-        url: '/api/auth/me',
-        method: 'GET',
+      const data = await me({
+        client: apiClient,
         responseStyle: 'data',
         credentials: 'include',
+        throwOnError: true,
       })
-      setUserInfo(data.userRole, data.email)
+      setUserInfo(data.userRole!, data.email!)
     } catch {
       clearAuth()
     }
@@ -35,12 +36,8 @@ export const useAuthStore = defineStore('auth', () => {
 
   async function logout() {
     clearAuth()
-    await apiClient.request({
-      url: '/api/auth/logout',
-      method: 'POST',
-      credentials: 'include',
-    })
     initialized.value = false
+    await apiLogout({ client: apiClient, credentials: 'include' })
   }
 
   const isAuthenticated = computed(() => !!userRole.value)
