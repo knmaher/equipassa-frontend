@@ -2,6 +2,7 @@
 import { defineStore } from 'pinia'
 import { ref, computed } from 'vue'
 import { apiClient } from '@/infrastructure/http/ApiClient'
+import type { MeResponses } from '@/infrastructure/api'
 
 export const useAuthStore = defineStore('auth', () => {
   const userRole = ref<string | null>(null)
@@ -21,25 +22,30 @@ export const useAuthStore = defineStore('auth', () => {
     if (initialized.value) return
     initialized.value = true
     try {
-      const { data } = await apiClient.request({
+      const data = await apiClient.request<MeResponses, unknown, true, 'data'>({
         url: '/api/auth/me',
         method: 'GET',
         responseStyle: 'data',
         credentials: 'include',
+        throwOnError: true,
       })
-      setUserInfo(data.userRole, data.email)
-    } catch {
-      clearAuth()
+      setUserInfo(data.userRole as string, data.email as string)
+    } catch (e: any) {
+      if (e?.response?.status === 401) {
+        clearAuth()
+      } else {
+        throw e
+      }
     }
   }
 
   async function logout() {
-    clearAuth()
     await apiClient.request({
       url: '/api/auth/logout',
       method: 'POST',
       credentials: 'include',
     })
+    clearAuth()
     initialized.value = false
   }
 

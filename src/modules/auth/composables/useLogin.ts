@@ -1,6 +1,7 @@
 // src/modules/auth/composables/useLogin.ts
 import { apiClient, ensureCsrf } from '@/infrastructure/http/ApiClient'
 import { login as loginRequest } from '@/infrastructure/api'
+import type { MeResponses } from '@/infrastructure/api'
 import { useAuthStore } from '../store'
 import { ref } from 'vue'
 import type { LoginRequest } from '@/infrastructure/api'
@@ -28,15 +29,16 @@ export function useLogin() {
         credentials: 'include',
       })
 
-      const me = await apiClient.request({
+      const me = await apiClient.request<MeResponses, unknown, true, 'data'>({
         url: '/api/auth/me',
         method: 'GET',
         responseStyle: 'data',
         credentials: 'include',
+        throwOnError: true,
       })
-      auth.setUserInfo(me.data.userRole, me.data.email)
+      auth.setUserInfo(me.userRole as string, me.email as string)
 
-      const redirect = (route.query.redirect as string) || '/dashboard'
+      const redirect = (route.query.redirect as string) ?? '/dashboard'
       await router.replace(redirect)
     } catch (e) {
       error.value = extractErrorMessage(e, 'Login failed')
