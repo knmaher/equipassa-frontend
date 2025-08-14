@@ -76,17 +76,18 @@ const router = createRouter({
 router.beforeEach(async (to) => {
   const auth = useAuthStore()
 
-  if (!auth.initialized) {
-    await auth.init()
+  if (to.meta.requiresAuth) {
+    if (!auth.initialized) {
+      await auth.init()            // ruft /api/auth/me hier – nur wenn nötig
+    }
+    if (!auth.isAuthenticated) {
+      return { path: '/login', query: { redirect: to.fullPath } }
+    }
+    return
   }
 
-  const isLoggedIn = auth.isAuthenticated
-
-  if (to.meta.requiresAuth && !isLoggedIn) {
-    return { path: '/login', query: { redirect: to.fullPath } }
-  }
-
-  if (isLoggedIn && (to.path === '/' || to.path === '/login')) {
+  // Optional: Keine Session-Probe auf öffentlichen Seiten
+  if (auth.isAuthenticated && (to.path === '/' || to.path === '/login')) {
     return { path: '/dashboard' }
   }
 })
