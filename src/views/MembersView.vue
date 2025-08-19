@@ -19,17 +19,15 @@ import { useI18n } from 'vue-i18n'
 import { NButton } from 'naive-ui'
 import { useAuthStore } from '@/modules/auth/store'
 import InviteMemberModal from '@/components/InviteMemberModal.vue'
+import { InviteUserRequest } from '@/infrastructure/api'
 
 const { t } = useI18n()
 const auth = useAuthStore()
 
 const showInvite = ref(false)
-const members = ref<any[]>([])
+const members = ref<InviteUserRequest[]>([])
 
-const isOrgAdmin = computed(() => {
-  const role = auth.userRole === 'ORG_ADMIN'
-  return role
-})
+const isOrgAdmin = computed(() => auth.userRole === 'ORG_ADMIN')
 </script>
 
 <style scoped></style>

@@ -1,26 +1,30 @@
 import { test, expect } from '@playwright/test';
 
+declare global {
+  interface Window {
+    __buttonClicked: boolean
+    handleButtonClick: () => void
+  }
+}
+export {}
+
 test('EqButton renders correctly and is clickable', async ({ page }) => {
-  // Create a test route that renders the button
-  await page.route('/', route => {
+  await page.route('/', (route) => {
     route.fulfill({
+      contentType: 'text/html',
       body: `
         <html>
           <body>
             <div id="app">
-              <button class="eq-button" data-testid="my-button">Click me</button>
+              <button class="eq-button" data-testid="my-button" onclick="window.handleButtonClick()">Click me</button>
             </div>
             <script>
-              // Initialize click state and handler
               window.__buttonClicked = false;
-              window.handleButtonClick = () => {
-                window.__buttonClicked = true;
-              };
+              window.handleButtonClick = () => { window.__buttonClicked = true; };
             </script>
           </body>
         </html>
       `,
-      contentType: 'text/html'
     });
   });
 
@@ -31,14 +35,8 @@ test('EqButton renders correctly and is clickable', async ({ page }) => {
   await expect(button).toHaveText('Click me');
   await expect(button).toHaveClass(/eq-button/);
 
-  // Test click functionality
-  await page.$eval('[data-testid="my-button"]', button => {
-    button.addEventListener('click', () => window.handleButtonClick());
-  });
-
   await button.click();
 
-  // Verify the click was registered
-  const wasClicked = await page.evaluate(() => window.__buttonClicked);
+  const wasClicked = await page.evaluate<boolean>(() => window.__buttonClicked)
   expect(wasClicked).toBe(true);
 });

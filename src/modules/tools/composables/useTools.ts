@@ -1,12 +1,12 @@
 import { ref } from 'vue'
 import { apiClient } from '@/infrastructure/http/ApiClient'
 import {
-  getTools,
-  deleteTool,
   createTool,
-  updateTool,
+  deleteTool,
+  getTools,
   type ToolRequest,
   type ToolResponse,
+  updateTool,
 } from '@/infrastructure/api'
 import { extractErrorMessage } from '@/utils/errors'
 
@@ -26,12 +26,11 @@ export function useTools() {
     loading.value = true
     error.value = null
     try {
-      const resp = await getTools({
+      tools.value = await getTools({
         client: apiClient,
         throwOnError: true,
         responseStyle: 'data',
       })
-      tools.value = Array.isArray(resp) ? resp : ((resp as any)?.content ?? [])
     } catch (e) {
       error.value = extractErrorMessage(e, 'Failed to fetch tools')
       throw e
