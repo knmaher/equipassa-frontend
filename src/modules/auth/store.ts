@@ -1,4 +1,3 @@
-// src/modules/auth/store.ts
 import { defineStore } from 'pinia'
 import { ref, computed } from 'vue'
 import { apiClient } from '@/infrastructure/http/ApiClient'

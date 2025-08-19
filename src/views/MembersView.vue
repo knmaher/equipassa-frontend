@@ -28,7 +28,6 @@ const members = ref<any[]>([])
 
 const isOrgAdmin = computed(() => {
   const role = auth.userRole === 'ORG_ADMIN'
-  console.log('role', auth.userRole)
   return role
 })
 </script>

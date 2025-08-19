@@ -78,7 +78,7 @@ router.beforeEach(async (to) => {
 
   if (to.meta.requiresAuth) {
     if (!auth.initialized) {
-      await auth.init() // ruft /api/auth/me hier – nur wenn nötig
+      await auth.init()
     }
     if (!auth.isAuthenticated) {
       return { path: '/login', query: { redirect: to.fullPath } }
@@ -86,7 +86,6 @@ router.beforeEach(async (to) => {
     return
   }
 
-  // Optional: Keine Session-Probe auf öffentlichen Seiten
   if (auth.isAuthenticated && (to.path === '/' || to.path === '/login')) {
     return { path: '/dashboard' }
   }
