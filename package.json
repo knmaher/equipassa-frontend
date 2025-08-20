@@ -13,8 +13,10 @@
     "test": "run-p test:unit test:e2e",
     "build-only": "vite build",
     "type-check": "vue-tsc --project tsconfig.app.json --noEmit",
-    "lint": "eslint . --fix",
-    "format": "prettier --write src/",
+    "lint": "eslint --max-warnings 0 .",
+    "lint:fix": "eslint . --fix",
+    "format:check": "prettier --check .",
+    "format": "prettier --write .",
     "gen:api": "openapi-ts"
   },
   "dependencies": {

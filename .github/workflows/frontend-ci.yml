@@ -34,20 +34,25 @@ jobs:
           node-version: 20
           cache: pnpm
 
-      # 3) Dependencies installieren (CI-äquivalent)
       - name: Install deps
         run: pnpm install --frozen-lockfile
 
-      - name: Lint + Format check
-        run: pnpm run lint -- --max-warnings=0
+      - name: Lint
+        run: pnpm run lint
+
+      - name: Format check
+        run: pnpm run format:check
 
       - name: Type-check (vue-tsc)
         run: pnpm run type-check
 
       - name: Unit tests (Vitest)
-        run: pnpm run test:unit -- --coverage
+        run: pnpm run test:unit --coverage
 
       - name: Install Playwright browsers
+        if: success()
         run: npx playwright install --with-deps
+
       - name: E2E tests (Playwright)
+        if: success()
         run: pnpm run test:e2e
