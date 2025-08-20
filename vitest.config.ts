@@ -29,9 +29,9 @@ export default mergeConfig(
       exclude: [
         ...configDefaults.exclude,
         'e2e/**',
-        '**/__tests__/e2e/**'  // Add this line
+        '**/__tests__/e2e/**', // Add this line
       ],
       root: fileURLToPath(new URL('./', import.meta.url)),
-    }
-  })
+    },
+  }),
 )

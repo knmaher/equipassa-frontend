@@ -1,11 +1,6 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": [
-    "config:recommended",
-    ":dependencyDashboard",
-    "group:monorepos",
-    "schedule:weekly"
-  ],
+  "extends": ["config:recommended", ":dependencyDashboard", "group:monorepos", "schedule:weekly"],
   "platformAutomerge": true,
   "prConcurrentLimit": 4,
   "prHourlyLimit": 2,
@@ -15,27 +10,16 @@
   "reviewers": ["knmaher"],
   "packageRules": [
     {
-      "matchPackagePatterns": [
-        "^vue$",
-        "^vue-router$",
-        "^pinia$"
-      ],
+      "matchPackagePatterns": ["^vue$", "^vue-router$", "^pinia$"],
       "groupName": "Vue core",
       "semanticCommitType": "fix"
     },
     {
-      "matchPackagePatterns": [
-        "^vite",
-        "@vitejs/",
-        "vite-plugin-"
-      ],
+      "matchPackagePatterns": ["^vite", "@vitejs/", "vite-plugin-"],
       "groupName": "Vite & plugins"
     },
     {
-      "matchPackagePatterns": [
-        "^naive-ui$",
-        "^@vicons/"
-      ],
+      "matchPackagePatterns": ["^naive-ui$", "^@vicons/"],
       "groupName": "UI libraries"
     },
     {

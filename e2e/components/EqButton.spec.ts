@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test';
+import { test, expect } from '@playwright/test'
 
 declare global {
   interface Window {
@@ -25,18 +25,18 @@ test('EqButton renders correctly and is clickable', async ({ page }) => {
           </body>
         </html>
       `,
-    });
-  });
+    })
+  })
 
-  await page.goto('/');
+  await page.goto('/')
 
-  const button = page.locator('[data-testid="my-button"]');
-  await expect(button).toBeVisible();
-  await expect(button).toHaveText('Click me');
-  await expect(button).toHaveClass(/eq-button/);
+  const button = page.locator('[data-testid="my-button"]')
+  await expect(button).toBeVisible()
+  await expect(button).toHaveText('Click me')
+  await expect(button).toHaveClass(/eq-button/)
 
-  await button.click();
+  await button.click()
 
   const wasClicked = await page.evaluate<boolean>(() => window.__buttonClicked)
-  expect(wasClicked).toBe(true);
-});
+  expect(wasClicked).toBe(true)
+})
