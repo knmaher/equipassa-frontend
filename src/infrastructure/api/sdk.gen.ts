@@ -15,10 +15,6 @@ import type {
   UpdateToolResponses,
   ModifyData,
   ModifyResponses,
-  VerifyMfaData,
-  VerifyMfaResponses,
-  EnableMfaData,
-  EnableMfaResponses,
   GetProfileData,
   GetProfileResponses,
   UpdateProfileData,
@@ -47,8 +43,6 @@ import type {
   RegisterResponses,
   RegisterOrgData,
   RegisterOrgResponses,
-  RefreshTokenData,
-  RefreshTokenResponses,
   RequestPasswordResetData,
   RequestPasswordResetResponses,
   ConfirmPasswordResetData,
@@ -57,17 +51,22 @@ import type {
   LogoutResponses,
   LoginData,
   LoginResponses,
-  GetMfaQrCodeData,
-  GetMfaQrCodeResponses,
+  ReadinessData,
+  ReadinessResponses,
+  LivenessData,
+  LivenessResponses,
   VerifyEmailData,
   VerifyEmailResponses,
+  MeData,
+  MeResponses,
+  CsrfData,
+  CsrfResponses,
 } from './types.gen'
 import { client as _heyApiClient } from './client.gen'
 import {
   getToolByIdResponseTransformer,
   updateToolResponseTransformer,
   modifyResponseTransformer,
-  verifyMfaResponseTransformer,
   getProfileResponseTransformer,
   updateProfileResponseTransformer,
   getToolsResponseTransformer,
@@ -81,8 +80,8 @@ import {
   acceptInviteResponseTransformer,
   registerResponseTransformer,
   registerOrgResponseTransformer,
-  refreshTokenResponseTransformer,
   loginResponseTransformer,
+  meResponseTransformer,
 } from './transformers.gen'
 
 export type Options<
@@ -106,12 +105,6 @@ export const deleteTool = <ThrowOnError extends boolean = false>(
   options: Options<DeleteToolData, ThrowOnError>,
 ) => {
   return (options.client ?? _heyApiClient).delete<DeleteToolResponses, unknown, ThrowOnError>({
-    security: [
-      {
-        scheme: 'bearer',
-        type: 'http',
-      },
-    ],
     url: '/api/tools/{id}',
     ...options,
   })
@@ -122,12 +115,6 @@ export const getToolById = <ThrowOnError extends boolean = false>(
 ) => {
   return (options.client ?? _heyApiClient).get<GetToolByIdResponses, unknown, ThrowOnError>({
     responseTransformer: getToolByIdResponseTransformer,
-    security: [
-      {
-        scheme: 'bearer',
-        type: 'http',
-      },
-    ],
     url: '/api/tools/{id}',
     ...options,
   })
@@ -139,12 +126,6 @@ export const updateTool = <ThrowOnError extends boolean = false>(
   return (options.client ?? _heyApiClient).put<UpdateToolResponses, unknown, ThrowOnError>({
     ...formDataBodySerializer,
     responseTransformer: updateToolResponseTransformer,
-    security: [
-      {
-        scheme: 'bearer',
-        type: 'http',
-      },
-    ],
     url: '/api/tools/{id}',
     ...options,
     headers: {
@@ -159,52 +140,7 @@ export const modify = <ThrowOnError extends boolean = false>(
 ) => {
   return (options.client ?? _heyApiClient).put<ModifyResponses, unknown, ThrowOnError>({
     responseTransformer: modifyResponseTransformer,
-    security: [
-      {
-        scheme: 'bearer',
-        type: 'http',
-      },
-    ],
     url: '/api/reservations/{reservationId}/modify',
-    ...options,
-    headers: {
-      'Content-Type': 'application/json',
-      ...options.headers,
-    },
-  })
-}
-
-export const verifyMfa = <ThrowOnError extends boolean = false>(
-  options: Options<VerifyMfaData, ThrowOnError>,
-) => {
-  return (options.client ?? _heyApiClient).post<VerifyMfaResponses, unknown, ThrowOnError>({
-    responseTransformer: verifyMfaResponseTransformer,
-    security: [
-      {
-        scheme: 'bearer',
-        type: 'http',
-      },
-    ],
-    url: '/mfa/verify',
-    ...options,
-    headers: {
-      'Content-Type': 'application/json',
-      ...options.headers,
-    },
-  })
-}
-
-export const enableMfa = <ThrowOnError extends boolean = false>(
-  options: Options<EnableMfaData, ThrowOnError>,
-) => {
-  return (options.client ?? _heyApiClient).post<EnableMfaResponses, unknown, ThrowOnError>({
-    security: [
-      {
-        scheme: 'bearer',
-        type: 'http',
-      },
-    ],
-    url: '/mfa/enable',
     ...options,
     headers: {
       'Content-Type': 'application/json',
@@ -218,12 +154,6 @@ export const getProfile = <ThrowOnError extends boolean = false>(
 ) => {
   return (options.client ?? _heyApiClient).get<GetProfileResponses, unknown, ThrowOnError>({
     responseTransformer: getProfileResponseTransformer,
-    security: [
-      {
-        scheme: 'bearer',
-        type: 'http',
-      },
-    ],
     url: '/api/user/me',
     ...options,
   })
@@ -234,12 +164,6 @@ export const updateProfile = <ThrowOnError extends boolean = false>(
 ) => {
   return (options.client ?? _heyApiClient).post<UpdateProfileResponses, unknown, ThrowOnError>({
     responseTransformer: updateProfileResponseTransformer,
-    security: [
-      {
-        scheme: 'bearer',
-        type: 'http',
-      },
-    ],
     url: '/api/user/me',
     ...options,
     headers: {
@@ -254,12 +178,6 @@ export const getTools = <ThrowOnError extends boolean = false>(
 ) => {
   return (options?.client ?? _heyApiClient).get<GetToolsResponses, unknown, ThrowOnError>({
     responseTransformer: getToolsResponseTransformer,
-    security: [
-      {
-        scheme: 'bearer',
-        type: 'http',
-      },
-    ],
     url: '/api/tools',
     ...options,
   })
@@ -271,12 +189,6 @@ export const createTool = <ThrowOnError extends boolean = false>(
   return (options?.client ?? _heyApiClient).post<CreateToolResponses, unknown, ThrowOnError>({
     ...formDataBodySerializer,
     responseTransformer: createToolResponseTransformer,
-    security: [
-      {
-        scheme: 'bearer',
-        type: 'http',
-      },
-    ],
     url: '/api/tools',
     ...options,
     headers: {
@@ -291,12 +203,6 @@ export const renewUser = <ThrowOnError extends boolean = false>(
 ) => {
   return (options.client ?? _heyApiClient).post<RenewUserResponses, unknown, ThrowOnError>({
     responseTransformer: renewUserResponseTransformer,
-    security: [
-      {
-        scheme: 'bearer',
-        type: 'http',
-      },
-    ],
     url: '/api/subscriptions/users/{userId}/renew',
     ...options,
     headers: {
@@ -311,12 +217,6 @@ export const renewOrg = <ThrowOnError extends boolean = false>(
 ) => {
   return (options.client ?? _heyApiClient).post<RenewOrgResponses, unknown, ThrowOnError>({
     responseTransformer: renewOrgResponseTransformer,
-    security: [
-      {
-        scheme: 'bearer',
-        type: 'http',
-      },
-    ],
     url: '/api/subscriptions/organizations/{orgId}/renew',
     ...options,
     headers: {
@@ -331,12 +231,6 @@ export const checkout = <ThrowOnError extends boolean = false>(
 ) => {
   return (options.client ?? _heyApiClient).post<CheckoutResponses, unknown, ThrowOnError>({
     responseTransformer: checkoutResponseTransformer,
-    security: [
-      {
-        scheme: 'bearer',
-        type: 'http',
-      },
-    ],
     url: '/api/reservations/{reservationId}/check-out',
     ...options,
   })
@@ -347,12 +241,6 @@ export const checkIn = <ThrowOnError extends boolean = false>(
 ) => {
   return (options.client ?? _heyApiClient).post<CheckInResponses, unknown, ThrowOnError>({
     responseTransformer: checkInResponseTransformer,
-    security: [
-      {
-        scheme: 'bearer',
-        type: 'http',
-      },
-    ],
     url: '/api/reservations/{reservationId}/check-in',
     ...options,
   })
@@ -363,12 +251,6 @@ export const cancel = <ThrowOnError extends boolean = false>(
 ) => {
   return (options.client ?? _heyApiClient).post<CancelResponses, unknown, ThrowOnError>({
     responseTransformer: cancelResponseTransformer,
-    security: [
-      {
-        scheme: 'bearer',
-        type: 'http',
-      },
-    ],
     url: '/api/reservations/{reservationId}/cancel',
     ...options,
   })
@@ -379,12 +261,6 @@ export const reserve = <ThrowOnError extends boolean = false>(
 ) => {
   return (options.client ?? _heyApiClient).post<ReserveResponses, unknown, ThrowOnError>({
     responseTransformer: reserveResponseTransformer,
-    security: [
-      {
-        scheme: 'bearer',
-        type: 'http',
-      },
-    ],
     url: '/api/reservations/reserve',
     ...options,
     headers: {
@@ -398,12 +274,6 @@ export const invite = <ThrowOnError extends boolean = false>(
   options: Options<InviteData, ThrowOnError>,
 ) => {
   return (options.client ?? _heyApiClient).post<InviteResponses, unknown, ThrowOnError>({
-    security: [
-      {
-        scheme: 'bearer',
-        type: 'http',
-      },
-    ],
     url: '/api/invitations/invite',
     ...options,
     headers: {
@@ -418,12 +288,6 @@ export const acceptInvite = <ThrowOnError extends boolean = false>(
 ) => {
   return (options.client ?? _heyApiClient).post<AcceptInviteResponses, unknown, ThrowOnError>({
     responseTransformer: acceptInviteResponseTransformer,
-    security: [
-      {
-        scheme: 'bearer',
-        type: 'http',
-      },
-    ],
     url: '/api/invitations/accept-invite',
     ...options,
     headers: {
@@ -438,12 +302,6 @@ export const register = <ThrowOnError extends boolean = false>(
 ) => {
   return (options.client ?? _heyApiClient).post<RegisterResponses, unknown, ThrowOnError>({
     responseTransformer: registerResponseTransformer,
-    security: [
-      {
-        scheme: 'bearer',
-        type: 'http',
-      },
-    ],
     url: '/api/auth/register',
     ...options,
     headers: {
@@ -458,33 +316,7 @@ export const registerOrg = <ThrowOnError extends boolean = false>(
 ) => {
   return (options.client ?? _heyApiClient).post<RegisterOrgResponses, unknown, ThrowOnError>({
     responseTransformer: registerOrgResponseTransformer,
-    security: [
-      {
-        scheme: 'bearer',
-        type: 'http',
-      },
-    ],
     url: '/api/auth/register-org',
-    ...options,
-    headers: {
-      'Content-Type': 'application/json',
-      ...options.headers,
-    },
-  })
-}
-
-export const refreshToken = <ThrowOnError extends boolean = false>(
-  options: Options<RefreshTokenData, ThrowOnError>,
-) => {
-  return (options.client ?? _heyApiClient).post<RefreshTokenResponses, unknown, ThrowOnError>({
-    responseTransformer: refreshTokenResponseTransformer,
-    security: [
-      {
-        scheme: 'bearer',
-        type: 'http',
-      },
-    ],
-    url: '/api/auth/refresh',
     ...options,
     headers: {
       'Content-Type': 'application/json',
@@ -501,12 +333,6 @@ export const requestPasswordReset = <ThrowOnError extends boolean = false>(
     unknown,
     ThrowOnError
   >({
-    security: [
-      {
-        scheme: 'bearer',
-        type: 'http',
-      },
-    ],
     url: '/api/auth/password-reset/request',
     ...options,
     headers: {
@@ -524,12 +350,6 @@ export const confirmPasswordReset = <ThrowOnError extends boolean = false>(
     unknown,
     ThrowOnError
   >({
-    security: [
-      {
-        scheme: 'bearer',
-        type: 'http',
-      },
-    ],
     url: '/api/auth/password-reset/confirm',
     ...options,
     headers: {
@@ -540,15 +360,9 @@ export const confirmPasswordReset = <ThrowOnError extends boolean = false>(
 }
 
 export const logout = <ThrowOnError extends boolean = false>(
-  options: Options<LogoutData, ThrowOnError>,
+  options?: Options<LogoutData, ThrowOnError>,
 ) => {
-  return (options.client ?? _heyApiClient).post<LogoutResponses, unknown, ThrowOnError>({
-    security: [
-      {
-        scheme: 'bearer',
-        type: 'http',
-      },
-    ],
+  return (options?.client ?? _heyApiClient).post<LogoutResponses, unknown, ThrowOnError>({
     url: '/api/auth/logout',
     ...options,
   })
@@ -559,12 +373,6 @@ export const login = <ThrowOnError extends boolean = false>(
 ) => {
   return (options.client ?? _heyApiClient).post<LoginResponses, unknown, ThrowOnError>({
     responseTransformer: loginResponseTransformer,
-    security: [
-      {
-        scheme: 'bearer',
-        type: 'http',
-      },
-    ],
     url: '/api/auth/login',
     ...options,
     headers: {
@@ -574,17 +382,20 @@ export const login = <ThrowOnError extends boolean = false>(
   })
 }
 
-export const getMfaQrCode = <ThrowOnError extends boolean = false>(
-  options: Options<GetMfaQrCodeData, ThrowOnError>,
+export const readiness = <ThrowOnError extends boolean = false>(
+  options?: Options<ReadinessData, ThrowOnError>,
 ) => {
-  return (options.client ?? _heyApiClient).get<GetMfaQrCodeResponses, unknown, ThrowOnError>({
-    security: [
-      {
-        scheme: 'bearer',
-        type: 'http',
-      },
-    ],
-    url: '/mfa/qr-code',
+  return (options?.client ?? _heyApiClient).get<ReadinessResponses, unknown, ThrowOnError>({
+    url: '/kube/readiness',
+    ...options,
+  })
+}
+
+export const liveness = <ThrowOnError extends boolean = false>(
+  options?: Options<LivenessData, ThrowOnError>,
+) => {
+  return (options?.client ?? _heyApiClient).get<LivenessResponses, unknown, ThrowOnError>({
+    url: '/kube/liveness',
     ...options,
   })
 }
@@ -593,13 +404,29 @@ export const verifyEmail = <ThrowOnError extends boolean = false>(
   options: Options<VerifyEmailData, ThrowOnError>,
 ) => {
   return (options.client ?? _heyApiClient).get<VerifyEmailResponses, unknown, ThrowOnError>({
-    security: [
-      {
-        scheme: 'bearer',
-        type: 'http',
-      },
-    ],
     url: '/api/auth/verify-email',
+    ...options,
+  })
+}
+
+export const me = <ThrowOnError extends boolean = false>(
+  options?: Options<MeData, ThrowOnError>,
+) => {
+  return (options?.client ?? _heyApiClient).get<MeResponses, unknown, ThrowOnError>({
+    responseTransformer: meResponseTransformer,
+    url: '/api/auth/me',
+    ...options,
+  })
+}
+
+/**
+ * Get CSRF token
+ */
+export const csrf = <ThrowOnError extends boolean = false>(
+  options?: Options<CsrfData, ThrowOnError>,
+) => {
+  return (options?.client ?? _heyApiClient).get<CsrfResponses, unknown, ThrowOnError>({
+    url: '/api/auth/csrf',
     ...options,
   })
 }

@@ -3,18 +3,18 @@ name: Frontend CI
 on:
   pull_request:
     paths:
-      - "src/**"
-      - "package.json"
-      - "pnpm-lock.yaml"
-      - "vite.config.*"
-      - ".github/workflows/frontend-ci.yml"
+      - 'src/**'
+      - 'package.json'
+      - 'pnpm-lock.yaml'
+      - 'vite.config.*'
+      - '.github/workflows/frontend-ci.yml'
 
 jobs:
   test-build:
     runs-on: ubuntu-latest
     permissions:
       contents: read
-      pull-requests: write      # damit mit Annotations an den PR geschrieben werden können
+      pull-requests: write
     concurrency:
       group: ${{ github.workflow }}-${{ github.ref }}
       cancel-in-progress: true
@@ -22,27 +22,37 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Cache node_modules
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9
+          run_install: false
+
+      - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: "pnpm"           # oder "pnpm" / "yarn" – je nach Paketmanager
+          cache: pnpm
 
       - name: Install deps
-        run: pnpm ci
+        run: pnpm install --frozen-lockfile
 
-      - name: Lint + Format check
-        run: pnpm run lint -- --max-warnings=0
+      - name: Lint
+        run: pnpm run lint
+
+      - name: Format check
+        run: pnpm run format:check
 
       - name: Type-check (vue-tsc)
         run: pnpm run type-check
 
       - name: Unit tests (Vitest)
-        run: pnpm run test:unit -- --coverage
+        run: pnpm run test:unit --coverage
 
-      # Optionale Headless-E2E-Tests mit Playwright
       - name: Install Playwright browsers
-        if: always()
+        if: success()
         run: npx playwright install --with-deps
+
       - name: E2E tests (Playwright)
+        if: success()
         run: pnpm run test:e2e

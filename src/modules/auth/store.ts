@@ -1,66 +1,44 @@
 import { defineStore } from 'pinia'
-import { ref, watch } from 'vue'
+import { ref, computed } from 'vue'
+import { apiClient } from '@/infrastructure/http/ApiClient'
+import { me, logout as apiLogout } from '@/infrastructure/api'
 
 export const useAuthStore = defineStore('auth', () => {
-  const token = ref<string | null>(localStorage.getItem('token'))
-  const refreshToken = ref<string | null>(localStorage.getItem('refreshToken'))
-  const userRole = ref<string | null>(localStorage.getItem('userRole'))
-  const userEmail = ref<string | null>(localStorage.getItem('userEmail'))
+  const userRole = ref<string | null>(null)
+  const userEmail = ref<string | null>(null)
+  const initialized = ref(false)
 
-  function setTokens(newToken: string | null, newRefreshToken: string | null) {
-    token.value = newToken
-    refreshToken.value = newRefreshToken
-  }
-
-  function clearTokens() {
-    token.value = null
-    refreshToken.value = null
-  }
-
-  function setUserInfo(role: string | null, email: string | null) {
+  function setUserInfo(role: string, email: string) {
     userRole.value = role
     userEmail.value = email
   }
-
-  function clearUserInfo() {
+  function clearAuth() {
     userRole.value = null
     userEmail.value = null
   }
 
-  function logout() {
-    clearTokens()
-    clearUserInfo()
+  async function init() {
+    if (initialized.value) return
+    initialized.value = true
+    try {
+      const { data: meRes } = await me({
+        client: apiClient,
+        credentials: 'include',
+        throwOnError: true,
+      })
+      setUserInfo(meRes.userRole!, meRes.email!)
+    } catch {
+      clearAuth()
+    }
   }
 
-  watch(token, (val) => {
-    if (val) localStorage.setItem('token', val)
-    else localStorage.removeItem('token')
-  })
-
-  watch(refreshToken, (val) => {
-    if (val) localStorage.setItem('refreshToken', val)
-    else localStorage.removeItem('refreshToken')
-  })
-
-  watch(userRole, (val) => {
-    if (val) localStorage.setItem('userRole', val)
-    else localStorage.removeItem('userRole')
-  })
-
-  watch(userEmail, (val) => {
-    if (val) localStorage.setItem('userEmail', val)
-    else localStorage.removeItem('userEmail')
-  })
-
-  return {
-    token,
-    refreshToken,
-    userRole,
-    userEmail,
-    setTokens,
-    clearTokens,
-    setUserInfo,
-    clearUserInfo,
-    logout,
+  async function logout() {
+    clearAuth()
+    initialized.value = false
+    await apiLogout({ client: apiClient, credentials: 'include' })
   }
+
+  const isAuthenticated = computed(() => !!userRole.value)
+
+  return { userRole, userEmail, initialized, isAuthenticated, init, setUserInfo, clearAuth, logout }
 })

@@ -1,12 +1,12 @@
 import { ref } from 'vue'
 import { apiClient } from '@/infrastructure/http/ApiClient'
 import {
-  getTools,
-  deleteTool,
   createTool,
-  updateTool,
+  deleteTool,
+  getTools,
   type ToolRequest,
   type ToolResponse,
+  updateTool,
 } from '@/infrastructure/api'
 import { extractErrorMessage } from '@/utils/errors'
 
@@ -15,25 +15,25 @@ export function useTools() {
   const loading = ref(false)
   const error = ref<string | null>(null)
 
-  function buildForm(data: ToolRequest, files: File[]): FormData {
+  function buildMultipart(data: ToolRequest, files: File[] = []) {
     return {
-      toolRequest: new Blob([JSON.stringify(data)], { type: 'application/json' }),
+      toolRequest: data,
       files,
-    }
+    } as const
   }
 
   async function fetchTools() {
     loading.value = true
     error.value = null
     try {
-      const resp = await getTools({
+      const { data } = await getTools({
         client: apiClient,
         throwOnError: true,
-        responseStyle: 'data',
       })
-      tools.value = Array.isArray(resp) ? resp : (resp as any)?.content ?? []
+      tools.value = data ?? []
     } catch (e) {
       error.value = extractErrorMessage(e, 'Failed to fetch tools')
+      tools.value = []
       throw e
     } finally {
       loading.value = false
@@ -46,9 +46,9 @@ export function useTools() {
     try {
       await createTool({
         client: apiClient,
-        body: buildForm(data, files) as any,
+        body: buildMultipart(data, files),
         throwOnError: true,
-        responseStyle: 'data'
+        responseStyle: 'data',
       })
       await fetchTools()
     } catch (e) {
@@ -66,9 +66,9 @@ export function useTools() {
       await updateTool({
         client: apiClient,
         path: { id: BigInt(id) },
-        body: buildForm(data, files) as any,
+        body: buildMultipart(data, files),
         throwOnError: true,
-        responseStyle: 'data'
+        responseStyle: 'data',
       })
       await fetchTools()
     } catch (e) {

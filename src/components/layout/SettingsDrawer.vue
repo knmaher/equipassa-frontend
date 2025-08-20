@@ -11,7 +11,7 @@ const ui = useUiStore()
 
 const model = computed({
   get: () => ui.theme,
-  set: val => ui.setTheme(val as 'light' | 'dark'),
+  set: (val) => ui.setTheme(val as 'light' | 'dark'),
 })
 </script>
 
@@ -34,5 +34,4 @@ const model = computed({
   </n-drawer>
 </template>
 
-<style scoped>
-</style>
+<style scoped></style>

@@ -66,9 +66,6 @@ export const CustomUserDetailsSchema = {
       type: 'integer',
       format: 'int64',
     },
-    password: {
-      type: 'string',
-    },
     role: {
       type: 'string',
       enum: ['MEMBER', 'ADMIN', 'USER', 'ORG_ADMIN', 'STAFF'],
@@ -83,11 +80,8 @@ export const CustomUserDetailsSchema = {
     enabled: {
       type: 'boolean',
     },
-    accountNonExpired: {
-      type: 'boolean',
-    },
-    credentialsNonExpired: {
-      type: 'boolean',
+    password: {
+      type: 'string',
     },
     authorities: {
       type: 'array',
@@ -98,7 +92,13 @@ export const CustomUserDetailsSchema = {
     username: {
       type: 'string',
     },
+    credentialsNonExpired: {
+      type: 'boolean',
+    },
     accountNonLocked: {
+      type: 'boolean',
+    },
+    accountNonExpired: {
       type: 'boolean',
     },
   },
@@ -174,56 +174,6 @@ export const ReservationResponseSchema = {
     quantity: {
       type: 'integer',
       format: 'int32',
-    },
-  },
-} as const
-
-export const MfaVerificationRequestSchema = {
-  type: 'object',
-  properties: {
-    code: {
-      type: 'string',
-    },
-    rememberDevice: {
-      type: 'boolean',
-    },
-  },
-} as const
-
-export const AuthResponseSchema = {
-  type: 'object',
-  properties: {
-    token: {
-      type: 'string',
-    },
-    mfaRequired: {
-      type: 'boolean',
-    },
-    expiresIn: {
-      type: 'integer',
-      format: 'int64',
-    },
-    userId: {
-      type: 'integer',
-      format: 'int64',
-    },
-    refreshToken: {
-      type: 'string',
-    },
-    userRole: {
-      type: 'string',
-    },
-    email: {
-      type: 'string',
-    },
-  },
-} as const
-
-export const MfaEnableRequestSchema = {
-  type: 'object',
-  properties: {
-    code: {
-      type: 'string',
     },
   },
 } as const
@@ -518,15 +468,6 @@ export const OrgUserResponseSchema = {
   },
 } as const
 
-export const RefreshTokenRequestSchema = {
-  type: 'object',
-  properties: {
-    refreshToken: {
-      type: 'string',
-    },
-  },
-} as const
-
 export const PasswordResetRequestSchema = {
   type: 'object',
   properties: {
@@ -564,10 +505,45 @@ export const LoginRequestSchema = {
   },
 } as const
 
-export const MfaQrResponseSchema = {
+export const AuthResponseSchema = {
   type: 'object',
   properties: {
-    qrCodeUri: {
+    token: {
+      type: 'string',
+    },
+    mfaRequired: {
+      type: 'boolean',
+    },
+    expiresIn: {
+      type: 'integer',
+      format: 'int64',
+    },
+    userId: {
+      type: 'integer',
+      format: 'int64',
+    },
+    refreshToken: {
+      type: 'string',
+    },
+    userRole: {
+      type: 'string',
+    },
+    email: {
+      type: 'string',
+    },
+  },
+} as const
+
+export const CsrfDtoSchema = {
+  type: 'object',
+  properties: {
+    headerName: {
+      type: 'string',
+    },
+    parameterName: {
+      type: 'string',
+    },
+    token: {
       type: 'string',
     },
   },
