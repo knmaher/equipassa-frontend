@@ -54,14 +54,14 @@ heyClient.interceptors.response.use(async (response, request, options) => {
   if (!isUnsafe(method)) return response
 
   await ensureCsrf()
-  const client = options.client ?? heyClient
-  return client
-    .request({
-      ...options,
-      credentials: 'include',
-      method,
-    })
-    .then((r) => r.response)
+
+  const { response: retried } = await heyClient.request({
+    ...options,
+    credentials: 'include',
+    method,
+  })
+
+  return retried
 })
 
 export const apiClient = heyClient

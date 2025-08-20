@@ -18,13 +18,13 @@ export function useReservations() {
     loading.value = true
     error.value = null
     try {
-      return await reserve({
+      const { data: res } = await reserve({
         client: apiClient,
         body: data,
         query: { userDetails: SESSION_USER },
         throwOnError: true,
-        responseStyle: 'data',
       })
+      return res
     } catch (e) {
       error.value = extractErrorMessage(e, 'Failed to create reservation')
       throw e

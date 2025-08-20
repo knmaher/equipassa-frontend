@@ -26,13 +26,14 @@ export function useTools() {
     loading.value = true
     error.value = null
     try {
-      tools.value = await getTools({
+      const { data } = await getTools({
         client: apiClient,
         throwOnError: true,
-        responseStyle: 'data',
       })
+      tools.value = data ?? []
     } catch (e) {
       error.value = extractErrorMessage(e, 'Failed to fetch tools')
+      tools.value = []
       throw e
     } finally {
       loading.value = false

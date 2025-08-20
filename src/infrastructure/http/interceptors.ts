@@ -28,8 +28,12 @@ export async function handleAuthError(
 
   if (response.status === 403 && unsafe) {
     await ensureCsrf()
-    const client = options.client ?? apiClient
-    return client.request({ ...options, credentials: 'include', method }).then((r) => r.response)
+    const { response: retried } = await apiClient.request({
+      ...options,
+      credentials: 'include',
+      method,
+    })
+    return retried
   }
   return response
 }

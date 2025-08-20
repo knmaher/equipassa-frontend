@@ -23,14 +23,13 @@ export function useLogin() {
         client: apiClient,
         body: payload,
         throwOnError: true,
-        responseStyle: 'data',
         credentials: 'include',
       })
 
-      const meRes = await me({
+      const { data: meRes } = await me({
         client: apiClient,
-        responseStyle: 'data',
         credentials: 'include',
+        throwOnError: true,
       })
       auth.setUserInfo(meRes.userRole!, meRes.email!)
 

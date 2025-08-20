@@ -6,7 +6,7 @@
         {{ t('inventory.addTool') }}
       </n-button>
     </div>
-    <ToolList v-if="tools.length" :tools="tools">
+    <ToolList v-if="Array.isArray(tools) && tools.length" :tools="tools">
       <template #default="{ tool }">
         <div class="mt-2 flex space-x-2">
           <n-button size="tiny" quaternary @click="openEdit(tool)">

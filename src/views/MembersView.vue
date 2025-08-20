@@ -19,7 +19,7 @@ import { useI18n } from 'vue-i18n'
 import { NButton } from 'naive-ui'
 import { useAuthStore } from '@/modules/auth/store'
 import InviteMemberModal from '@/components/InviteMemberModal.vue'
-import { InviteUserRequest } from '@/infrastructure/api'
+import type { InviteUserRequest } from '@/infrastructure/api'
 
 const { t } = useI18n()
 const auth = useAuthStore()

@@ -21,13 +21,12 @@ export const useAuthStore = defineStore('auth', () => {
     if (initialized.value) return
     initialized.value = true
     try {
-      const data = await me({
+      const { data: meRes } = await me({
         client: apiClient,
-        responseStyle: 'data',
         credentials: 'include',
         throwOnError: true,
       })
-      setUserInfo(data.userRole!, data.email!)
+      setUserInfo(meRes.userRole!, meRes.email!)
     } catch {
       clearAuth()
     }
