@@ -2,7 +2,7 @@
 import ToolCard from './ToolCard.vue'
 import type { ToolResponse } from '@/infrastructure/api'
 
-const { tools } = defineProps<{ tools: ToolResponse[] }>()
+const props = defineProps<{ tools: ToolResponse[] }>()
 </script>
 
 <template>
@@ -12,7 +12,7 @@ const { tools } = defineProps<{ tools: ToolResponse[] }>()
     class="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3"
   >
     <ToolCard
-      v-for="(tool, idx) in tools"
+      v-for="(tool, idx) in props.tools"
       :key="tool.id != null ? Number(tool.id) : idx"
       :title="tool.name ?? ''"
       :description="tool.description"
@@ -25,15 +25,3 @@ const { tools } = defineProps<{ tools: ToolResponse[] }>()
     </ToolCard>
   </TransitionGroup>
 </template>
-
-<style scoped>
-.fade-enter-active,
-.fade-leave-active {
-  transition: all 0.3s ease;
-}
-.fade-enter-from,
-.fade-leave-to {
-  opacity: 0;
-  transform: translateY(8px);
-}
-</style>

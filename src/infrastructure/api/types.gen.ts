@@ -4,7 +4,7 @@ export type ToolRequest = {
   name: string
   description?: string
   category: string
-  conditionStatus: string
+  conditionStatus: 'NEW' | 'GOOD' | 'FAIR' | 'POOR' | 'DAMAGED' | 'NEEDS_REPAIR'
   quantityAvailable: number
 }
 
@@ -13,7 +13,7 @@ export type ToolResponse = {
   name?: string
   description?: string
   category?: string
-  conditionStatus?: string
+  conditionStatus?: 'NEW' | 'GOOD' | 'FAIR' | 'POOR' | 'DAMAGED' | 'NEEDS_REPAIR'
   quantityAvailable?: number
   imageUrls?: Array<string>
 }
@@ -23,13 +23,13 @@ export type CustomUserDetails = {
   role?: 'MEMBER' | 'ADMIN' | 'USER' | 'ORG_ADMIN' | 'STAFF'
   mfaEnabled?: boolean
   organizationId?: bigint
-  enabled?: boolean
   password?: string
-  authorities?: Array<GrantedAuthority>
-  username?: string
+  enabled?: boolean
+  accountNonExpired?: boolean
   credentialsNonExpired?: boolean
   accountNonLocked?: boolean
-  accountNonExpired?: boolean
+  username?: string
+  authorities?: Array<GrantedAuthority>
 }
 
 export type GrantedAuthority = {

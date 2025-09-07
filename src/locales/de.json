@@ -84,6 +84,14 @@
     "deleted": "Werkzeug gel\u00f6scht",
     "error": "Aktion fehlgeschlagen"
   },
+  "condition": {
+    "new": "Neu",
+    "good": "Gut",
+    "fair": "Befriedigend",
+    "poor": "Ausreichend",
+    "damaged": "Beschädigt",
+    "needsRepair": "Reparatur nötig"
+  },
   "reservations": {
     "title": "Reservierungen",
     "placeholder": "Kalender wird hier angezeigt",

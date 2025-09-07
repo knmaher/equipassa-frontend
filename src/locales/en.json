@@ -84,6 +84,14 @@
     "deleted": "Tool deleted",
     "error": "Operation failed"
   },
+  "condition": {
+    "new": "New",
+    "good": "Good",
+    "fair": "Fair",
+    "poor": "Poor",
+    "damaged": "Damaged",
+    "needsRepair": "Needs Repair"
+  },
   "reservations": {
     "title": "Reservations",
     "placeholder": "Reservation calendar goes here",

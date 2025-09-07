@@ -16,6 +16,7 @@ export const ToolRequestSchema = {
     },
     conditionStatus: {
       type: 'string',
+      enum: ['NEW', 'GOOD', 'FAIR', 'POOR', 'DAMAGED', 'NEEDS_REPAIR'],
       minLength: 1,
     },
     quantityAvailable: {
@@ -45,6 +46,7 @@ export const ToolResponseSchema = {
     },
     conditionStatus: {
       type: 'string',
+      enum: ['NEW', 'GOOD', 'FAIR', 'POOR', 'DAMAGED', 'NEEDS_REPAIR'],
     },
     quantityAvailable: {
       type: 'integer',
@@ -77,20 +79,14 @@ export const CustomUserDetailsSchema = {
       type: 'integer',
       format: 'int64',
     },
-    enabled: {
-      type: 'boolean',
-    },
     password: {
       type: 'string',
     },
-    authorities: {
-      type: 'array',
-      items: {
-        $ref: '#/components/schemas/GrantedAuthority',
-      },
+    enabled: {
+      type: 'boolean',
     },
-    username: {
-      type: 'string',
+    accountNonExpired: {
+      type: 'boolean',
     },
     credentialsNonExpired: {
       type: 'boolean',
@@ -98,8 +94,14 @@ export const CustomUserDetailsSchema = {
     accountNonLocked: {
       type: 'boolean',
     },
-    accountNonExpired: {
-      type: 'boolean',
+    username: {
+      type: 'string',
+    },
+    authorities: {
+      type: 'array',
+      items: {
+        $ref: '#/components/schemas/GrantedAuthority',
+      },
     },
   },
 } as const
@@ -218,6 +220,7 @@ export const UserProfileRequestSchema = {
     },
     email: {
       type: 'string',
+      format: 'email',
       minLength: 1,
     },
     phoneNumber: {
@@ -310,6 +313,7 @@ export const InviteUserRequestSchema = {
   properties: {
     email: {
       type: 'string',
+      format: 'email',
       minLength: 1,
     },
     role: {
@@ -337,6 +341,7 @@ export const AcceptInviteRequestSchema = {
     },
     email: {
       type: 'string',
+      format: 'email',
       minLength: 1,
     },
     password: {
@@ -385,6 +390,7 @@ export const UserRequestSchema = {
     },
     email: {
       type: 'string',
+      format: 'email',
       minLength: 1,
     },
     password: {
@@ -432,6 +438,7 @@ export const OrgRegistrationRequestSchema = {
     },
     adminEmail: {
       type: 'string',
+      format: 'email',
       minLength: 1,
     },
     adminPassword: {
@@ -473,6 +480,7 @@ export const PasswordResetRequestSchema = {
   properties: {
     email: {
       type: 'string',
+      format: 'email',
       minLength: 1,
     },
   },
