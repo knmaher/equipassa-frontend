@@ -18,8 +18,8 @@ importers:
         specifier: 3.5.21
         version: 3.5.21
       axios:
-        specifier: 1.11.0
-        version: 1.11.0
+        specifier: 1.12.2
+        version: 1.12.2
       js-cookie:
         specifier: ^3.0.5
         version: 3.0.5
@@ -44,7 +44,7 @@ importers:
     devDependencies:
       '@hey-api/client-axios':
         specifier: ^0.9.1
-        version: 0.9.1(@hey-api/openapi-ts@0.79.0(magicast@0.3.5)(typescript@5.8.3))(axios@1.11.0)
+        version: 0.9.1(@hey-api/openapi-ts@0.79.0(magicast@0.3.5)(typescript@5.8.3))(axios@1.12.2)
       '@hey-api/openapi-ts':
         specifier: 0.79.0
         version: 0.79.0(magicast@0.3.5)(typescript@5.8.3)
@@ -1159,8 +1159,8 @@ packages:
     peerDependencies:
       postcss: ^8.1.0
 
-  axios@1.11.0:
-    resolution: {integrity: sha512-1Lx3WLFQWm3ooKDYZD1eXmoGO9fxYQjrycfHFC8P0sCfQVXyROp0p9PFWBehewBOdCwHc+f/b8I0fMto5eSfwA==}
+  axios@1.12.2:
+    resolution: {integrity: sha512-vMJzPewAlRyOgxV2dU0Cuz2O8zzzx9VYtbJOaBgXFeLc4IV/Eg50n4LowmehOOR61S8ZMpc2K5Sa7g6A4jfkUw==}
 
   balanced-match@1.0.2:
     resolution: {integrity: sha512-3oSeUO0TMV67hN1AmbXsK4yaqU7tjiHlbxRDZOpH0KW9+CeX4bRAaX0Anxt0tx2MrpRpWwQaPwIlISEJhYU5Pw==}
@@ -3262,10 +3262,10 @@ snapshots:
       '@eslint/core': 0.15.2
       levn: 0.4.1
 
-  '@hey-api/client-axios@0.9.1(@hey-api/openapi-ts@0.79.0(magicast@0.3.5)(typescript@5.8.3))(axios@1.11.0)':
+  '@hey-api/client-axios@0.9.1(@hey-api/openapi-ts@0.79.0(magicast@0.3.5)(typescript@5.8.3))(axios@1.12.2)':
     dependencies:
       '@hey-api/openapi-ts': 0.79.0(magicast@0.3.5)(typescript@5.8.3)
-      axios: 1.11.0
+      axios: 1.12.2
 
   '@hey-api/json-schema-ref-parser@1.0.6':
     dependencies:
@@ -3944,7 +3944,7 @@ snapshots:
       postcss: 8.5.6
       postcss-value-parser: 4.2.0
 
-  axios@1.11.0:
+  axios@1.12.2:
     dependencies:
       follow-redirects: 1.15.9
       form-data: 4.0.4
